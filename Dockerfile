@@ -19,7 +19,7 @@ ENV ISC_KEY_FILE     "isc-2017-2018.asc"
 
 COPY ${ISC_KEY_FILE} /tmp
 WORKDIR /tmp
-RUN set -e &&\
+RUN set -xe &&\
   gpg --import ${ISC_KEY_FILE} &&\
   wget ${BIND_URL} -O ${BIND_FILE} &&\
   wget ${BIND_SHA512_URL} -O ${BIND_SHA512_FILE} &&\
@@ -27,6 +27,7 @@ RUN set -e &&\
 
 WORKDIR /usr/src
 RUN \
+  set -xe &&\
   tar xfz /tmp/${BIND_FILE} &&\
   ln -vs bind-9* bind-9-current &&\
   cd bind-9-current &&\
@@ -40,7 +41,9 @@ RUN \
 ################################################################################
 FROM francois75/docker-authfromhost:debian-stretch-slim
 
-RUN apt-get update &&\
+RUN \
+  set -xe &&\
+  apt-get update &&\
   DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -yq &&\
   DEBIAN_FRONTEND=noninteractive apt-get install -yq openssl
 
