@@ -1,5 +1,5 @@
 ################################################################################
-FROM eboraas/debian:stretch
+FROM debian:buster
 MAINTAINER Francois Scala "github@arcenik.net"
 
 ################################################################################
@@ -10,12 +10,12 @@ RUN \
     libxml2-dev libcap2-dev libgeoip-dev dpkg-dev python3 dh-systemd \
     autotools-dev dh-autoreconf gpg
 
-ENV BIND_VERSION     "9.12.3-P1"
+ENV BIND_VERSION     "9.12.4-P2"
 ENV BIND_FILE        "${BIND_VERSION}.tgz"
 ENV BIND_SHA512_FILE "${BIND_VERSION}.tgz.sha512.asc"
 ENV BIND_URL         "https://ftp.isc.org/isc/bind9/${BIND_VERSION}/bind-${BIND_VERSION}.tar.gz"
 ENV BIND_SHA512_URL  "https://ftp.isc.org/isc/bind9/${BIND_VERSION}/bind-${BIND_VERSION}.tar.gz.sha512.asc"
-ENV ISC_KEY_FILE     "isc-2017-2018.asc"
+ENV ISC_KEY_FILE     "isc-2019-2020.asc"
 
 COPY ${ISC_KEY_FILE} /tmp
 WORKDIR /tmp
