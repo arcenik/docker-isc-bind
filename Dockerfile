@@ -1,5 +1,5 @@
 ################################################################################
-FROM eboraas/debian:stretch
+FROM eboraas/debian:buster
 MAINTAINER Francois Scala "github@arcenik.net"
 
 ################################################################################
@@ -8,14 +8,14 @@ RUN \
   DEBIAN_FRONTEND=noninteractive apt-get install -yq \
     wget dh-exec libkrb5-dev libssl-dev libtool bison libdb-dev libldap2-dev \
     libxml2-dev libcap2-dev libgeoip-dev dpkg-dev python3 dh-systemd \
-    autotools-dev dh-autoreconf gpg
+    autotools-dev dh-autoreconf gpg python3-ply
 
-ENV BIND_VERSION     "9.11.5-P1"
+ENV BIND_VERSION     "9.11.12"
 ENV BIND_FILE        "${BIND_VERSION}.tgz"
 ENV BIND_SHA512_FILE "${BIND_VERSION}.tgz.sha512.asc"
 ENV BIND_URL         "https://ftp.isc.org/isc/bind9/${BIND_VERSION}/bind-${BIND_VERSION}.tar.gz"
 ENV BIND_SHA512_URL  "https://ftp.isc.org/isc/bind9/${BIND_VERSION}/bind-${BIND_VERSION}.tar.gz.sha512.asc"
-ENV ISC_KEY_FILE     "isc-2017-2018.asc"
+ENV ISC_KEY_FILE     "isc-2019-2020.asc"
 
 COPY ${ISC_KEY_FILE} /tmp
 WORKDIR /tmp
@@ -39,7 +39,7 @@ RUN \
   make install  2>&1 | tee make-install.log
 
 ################################################################################
-FROM francois75/docker-authfromhost:debian-stretch-slim
+FROM francois75/docker-authfromhost:debian-buster-slim
 
 RUN \
   set -xe &&\
