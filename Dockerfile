@@ -10,7 +10,7 @@ RUN \
     libxml2-dev libcap2-dev libgeoip-dev dpkg-dev python3 dh-systemd \
     autotools-dev dh-autoreconf gpg python3-ply
 
-ENV BIND_VERSION     "9.11.12"
+ENV BIND_VERSION     "9.11.35"
 ENV BIND_FILE        "${BIND_VERSION}.tgz"
 ENV BIND_SHA512_FILE "${BIND_VERSION}.tgz.sha512.asc"
 ENV BIND_URL         "https://ftp.isc.org/isc/bind9/${BIND_VERSION}/bind-${BIND_VERSION}.tar.gz"
