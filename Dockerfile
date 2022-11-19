@@ -10,7 +10,7 @@ RUN \
     libxml2-dev libcap2-dev libgeoip-dev dpkg-dev autotools-dev \
     dh-autoreconf gpg python-ply pkg-config libuv1-dev
 
-ENV BIND_VERSION     "9.16.21"
+ENV BIND_VERSION     "9.16.35"
 ENV BIND_FILE        "bind-${BIND_VERSION}.tar.xz"
 ENV BIND_SHA512_FILE "bind-${BIND_VERSION}.tar.xz.sha512.asc"
 ENV BIND_URL         "https://ftp.isc.org/isc/bind9/"
