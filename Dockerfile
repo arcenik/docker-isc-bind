@@ -8,7 +8,7 @@ RUN \
   DEBIAN_FRONTEND=noninteractive apt install -yq \
     wget dh-exec libkrb5-dev libssl-dev libtool bison libdb-dev libldap2-dev \
     libxml2-dev libcap2-dev libgeoip-dev dpkg-dev autotools-dev \
-    dh-autoreconf gpg python-ply pkg-config libuv1-dev
+    dh-autoreconf gpg python-ply pkg-config libuv1-dev libnghttp2-dev
 
 ENV BIND_VERSION     "9.18.9"
 ENV BIND_FILE        "bind-${BIND_VERSION}.tar.xz"
@@ -43,7 +43,8 @@ RUN \
   set -xe &&\
   apt update &&\
   DEBIAN_FRONTEND=noninteractive apt dist-upgrade -yq &&\
-  DEBIAN_FRONTEND=noninteractive apt install -yq openssl libxml2 libuv1 libcap2
+  DEBIAN_FRONTEND=noninteractive apt install -yq openssl libxml2 libuv1 libcap2 \
+    libnghttp2-14
 
 COPY --from=0 /opt/bind9 /opt/bind9
 
