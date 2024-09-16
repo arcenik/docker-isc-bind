@@ -11,6 +11,7 @@ RUN \
     libxml2-dev libcap2-dev libgeoip-dev dpkg-dev autotools-dev \
     dh-autoreconf gpg python3-ply pkg-config libuv1-dev libnghttp2-dev
 
+# EOL Q2/2026
 ENV BIND_VERSION  "9.18.29"
 ENV BIND_FILE     "bind-${BIND_VERSION}.tar.xz"
 ENV BIND_ASC_FILE "bind-${BIND_VERSION}.tar.xz.asc"
