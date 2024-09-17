@@ -9,7 +9,8 @@ RUN \
   DEBIAN_FRONTEND=noninteractive apt install -yqq -o=Dpkg::Use-Pty=0 \
     wget dh-exec libkrb5-dev libssl-dev libtool bison libdb-dev libldap2-dev \
     libxml2-dev libcap2-dev libgeoip-dev dpkg-dev autotools-dev \
-    dh-autoreconf gpg python3-ply pkg-config libuv1-dev libnghttp2-dev
+    dh-autoreconf gpg python3-ply pkg-config libuv1-dev libnghttp2-dev \
+    libjemalloc-dev
 
 # EOL Q2/2026
 ENV BIND_VERSION  "9.18.29"
@@ -46,7 +47,7 @@ RUN \
   apt update &&\
   DEBIAN_FRONTEND=noninteractive apt dist-upgrade -yqq -o=Dpkg::Use-Pty=0 &&\
   DEBIAN_FRONTEND=noninteractive apt install -yqq -o=Dpkg::Use-Pty=0 openssl libxml2 libuv1 libcap2 \
-    libnghttp2-14 libgssapi-krb5-2
+    libnghttp2-14 libgssapi-krb5-2 libjemalloc2
 
 COPY --from=0 /opt/bind9 /opt/bind9
 
