@@ -6,7 +6,7 @@ LABEL org.opencontainers.image.source="https://github.com/arcenik/docker-authfro
 ################################################################################
 RUN \
   apt update &&\
-  DEBIAN_FRONTEND=noninteractive apt install -yq \
+  DEBIAN_FRONTEND=noninteractive apt install -yqq -o=Dpkg::Use-Pty=0 \
     wget dh-exec libkrb5-dev libssl-dev libtool bison libdb-dev libldap2-dev \
     libxml2-dev libcap2-dev libgeoip-dev dpkg-dev autotools-dev \
     dh-autoreconf gpg python3-ply pkg-config libuv1-dev libnghttp2-dev
@@ -23,8 +23,8 @@ WORKDIR /tmp
 RUN \
   set -xe &&\
   gpg --import ${ISC_KEY_FILE} &&\
-  wget "${BIND_URL}${BIND_VERSION}/${BIND_FILE}" -O ${BIND_FILE} &&\
-  wget "${BIND_URL}${BIND_VERSION}/${BIND_ASC_FILE}" -O ${BIND_ASC_FILE} &&\
+  wget --quiet "${BIND_URL}${BIND_VERSION}/${BIND_FILE}" -O ${BIND_FILE} &&\
+  wget --quiet "${BIND_URL}${BIND_VERSION}/${BIND_ASC_FILE}" -O ${BIND_ASC_FILE} &&\
   gpg --verify ${BIND_ASC_FILE} ${BIND_FILE}
 
 WORKDIR /usr/src
@@ -46,7 +46,7 @@ RUN \
   apt update &&\
   DEBIAN_FRONTEND=noninteractive apt dist-upgrade -yqq -o=Dpkg::Use-Pty=0 &&\
   DEBIAN_FRONTEND=noninteractive apt install -yqq -o=Dpkg::Use-Pty=0 openssl libxml2 libuv1 libcap2 \
-    libnghttp2-14
+    libnghttp2-14 libgssapi-krb5-2
 
 COPY --from=0 /opt/bind9 /opt/bind9
 
@@ -54,6 +54,10 @@ RUN mkdir /var/cache/bind
 
 VOLUME /etc/bind
 EXPOSE 53/udp 53
+
+################################################################################
+HEALTHCHECK --interval=30s --timeout=1s \
+  CMD /opt/bind9/bin/dig @localhost google.com +short
 
 ################################################################################
 CMD ["/opt/bind9/sbin/named", "-f", "-c", "/etc/bind/named.conf", "-4"]
