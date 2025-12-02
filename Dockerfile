@@ -16,7 +16,7 @@ RUN \
     liburcu-dev libjemalloc-dev"
 
 # EOL Q2/2028
-ENV BIND_VERSION  '9.20.15'
+ENV BIND_VERSION  '9.20.16'
 ENV BIND_FILE     "bind-${BIND_VERSION}.tar.xz"
 ENV BIND_ASC_FILE "bind-${BIND_VERSION}.tar.xz.asc"
 ENV BIND_URL      'https://ftp.isc.org/isc/bind9/'
