@@ -13,10 +13,10 @@ RUN \
     wget curl dh-exec libkrb5-dev libssl-dev libtool bison libdb-dev libldap2-dev \
     libxml2-dev libcap2-dev libgeoip-dev dpkg-dev autotools-dev \
     dh-autoreconf gpg gpg-agent python3-ply pkg-config libuv1-dev libnghttp2-dev \
-    liburcu-dev libjemalloc-dev meson"
+    liburcu-dev libjemalloc-dev meson liblmdb-dev"
 
 # EOL Q2/2028
-ENV BIND_VERSION  '9.21.15'
+ENV BIND_VERSION  '9.21.21'
 ENV BIND_FILE     "bind-${BIND_VERSION}.tar.xz"
 ENV BIND_ASC_FILE "bind-${BIND_VERSION}.tar.xz.asc"
 ENV BIND_URL      'https://ftp.isc.org/isc/bind9/'
@@ -53,7 +53,7 @@ RUN \
   apt update ;\
   DEBIAN_FRONTEND=noninteractive apt dist-upgrade -yqq -o=Dpkg::Use-Pty=0 ;\
   DEBIAN_FRONTEND=noninteractive apt install -yqq -o=Dpkg::Use-Pty=0 openssl libxml2 libuv1 libcap2 \
-    libnghttp2-14  liburcu8 libgssapi-krb5-2 libjemalloc2"
+    libnghttp2-14  liburcu8 libgssapi-krb5-2 libjemalloc2 liblmdb0"
 
 COPY --from=0 /opt/bind9 /opt/bind9
 
