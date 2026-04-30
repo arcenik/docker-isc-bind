@@ -57,7 +57,13 @@ RUN \
 
 COPY --from=0 /opt/bind9 /opt/bind9
 
-RUN mkdir /var/cache/bind
+RUN \
+  bash -cxe "\
+  echo 'export PATH=${PATH}:/opt/bind9/bin:/opt/bind9/sbin' | tee /etc/profile.d/bind.sh ;\
+  echo /opt/bind9/lib/x86_64-linux-gnu/ > /etc/ld.so.conf.d/bind9.conf ;\
+  /sbin/ldconfig ;\
+  ln -vs /etc/bind /opt/bind9/etc ;\
+  mkdir -v /var/cache/bind"
 
 VOLUME /etc/bind
 EXPOSE 53/udp 53
